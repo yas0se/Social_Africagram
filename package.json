@@ -1,0 +1,16 @@
+{
+  "name": "africagram-api-v1-starter-665362505a0e0172589646",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "prisma": "^5.14.0"
+  }
+}
