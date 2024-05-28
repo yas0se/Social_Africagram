@@ -1,10 +1,12 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { v4: uuidv4 } = require("uuid");
+
 
 const createPostLike = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { postId } = req.body;
+    const { postId } = req.params;
 
     // Check if the user has already liked the post
     const existingLike = await prisma.aime.findFirst({
@@ -22,7 +24,8 @@ const createPostLike = async (req, res) => {
     const like = await prisma.aime.create({
       data: {
         utilisateur_id: userId,
-        post_id: postId
+        post_id: postId,
+        id: uuidv4()
       }
     });
 

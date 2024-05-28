@@ -8,6 +8,7 @@ const authRoutes = require('./routes/AuthRoutes')
 const commentRoutes = require('./routes/CommentRoutes');
 const postRoutes = require('./routes/PostRoutes');
 const followerRoutes = require('./routes/FollowerRoutes');
+const likesRoutes = require('./routes/LikesRoutes')
 const newsfeedRoutes = require('./routes/NewsFeedRoutes');
 const profileRoutes = require('./routes/ProfileRoutes');
 const statisticsRoutes = require('./routes/StatisticsRoutes');
@@ -21,6 +22,7 @@ app.use('/',authRoutes)
 app.use('/api/comments', authenticateToken, commentRoutes);
 app.use('/api/posts', authenticateToken, postRoutes);
 app.use('/api/followers', authenticateToken, followerRoutes);
+app.use('/api/likes', authenticateToken, likesRoutes);
 app.use('/api/newsfeed', authenticateToken, newsfeedRoutes);
 app.use('/api/profiles', authenticateToken, profileRoutes);
 app.use('/api/statistics', authenticateToken, statisticsRoutes);

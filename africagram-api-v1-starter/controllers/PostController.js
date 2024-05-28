@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { v4: uuidv4 } = require("uuid");
 
 const createPost = async (req, res) => {
   try {
@@ -10,7 +11,9 @@ const createPost = async (req, res) => {
     const post = await prisma.post.create({
       data: {
         utilisateur_id: userId,
-        caption: caption
+        caption: caption,
+        id:uuidv4(),
+        date_modification: new Date()
       }
     });
 

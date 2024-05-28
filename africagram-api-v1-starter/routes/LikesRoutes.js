@@ -8,6 +8,6 @@ const {
 
 router.post('/:postId/likes', createPostLike);
 router.delete('/:postId/likes/:userId', deletePostLike);
-router.get('/:postId/likes', getPostLike);
+router.get('/', getPostLike);
 
 module.exports = router;
