@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 
 const createProfile = async (req, res) => {
   try {
+    console.log("creating profile")
     const userId = req.user.userId;
     const { sexe, pays, ville } = req.body;
 
