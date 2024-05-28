@@ -28,7 +28,7 @@ const updateProfile = async (req, res) => {
   try {
     const userId = req.user.userId;
     const { sexe, pays, ville } = req.body;
-
+    console.log({userId,sexe,pays,ville})
     // Update the profile if the userId matches the profile's userId
     const updatedProfile = await prisma.profile.updateMany({
       where: {

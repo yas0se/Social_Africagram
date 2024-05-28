@@ -58,9 +58,15 @@ const register = async (req, res) => {
 }
 
 
-const logout = (req,res) => {
-    
-} 
+const logout = (req, res) => {
+  try {
+    req.headers['authorization'] = undefined;
+    res.status(200).json({ message: 'Logged out successfully' });
+  } catch (error) {
+    console.error('Error logging out user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
 module.exports = {
     login,

@@ -8,8 +8,8 @@ const {
 } = require('../controllers/ProfileController');
 
 router.post('/', createProfile);
-router.put('/:userId', updateProfile);
+router.put('/', updateProfile);
 router.get('/', getProfile);
-router.get('/:userId', getProfileById);
+// router.get('/:id', getProfileById);
 
 module.exports = router;

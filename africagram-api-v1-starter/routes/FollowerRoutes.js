@@ -1,15 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const {
-    createFollower,
-    deleteFollower,
-    getFollower,
-    getFollowerById
+    followUser,
+    
 } = require('../controllers/FollowerController');
 
-router.post('/:userId/followers', createFollower);
-router.delete('/:userId/followers/:followerId', deleteFollower);
-router.get('/:userId/followers', getFollower);
-router.get('/:userId/followers/:followerId', getFollowerById);
-
+router.post('/follow/:id', followUser);
 module.exports = router;
