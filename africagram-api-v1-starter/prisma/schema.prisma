@@ -8,18 +8,18 @@ datasource db {
 }
 
 model Aime {
-  id             Int         @id @default(autoincrement())
-  utilisateur_id Int
-  post_id        Int
+  id             String      @id @default(uuid())
+  utilisateur_id String
+  post_id        String
   date_creation  DateTime    @default(now())
   Post           Post        @relation(fields: [post_id], references: [id])
   Utilisateur    Utilisateur @relation(fields: [utilisateur_id], references: [id])
 }
 
 model Commentaire {
-  id             Int         @id @default(autoincrement())
-  utilisateur_id Int
-  post_id        Int
+  id             String      @id @default(uuid())
+  utilisateur_id String
+  post_id        String
   message        String
   date_creation  DateTime    @default(now())
   Post           Post        @relation(fields: [post_id], references: [id])
@@ -27,50 +27,53 @@ model Commentaire {
 }
 
 model Follower {
-  id                                             Int         @id @default(autoincrement())
-  following_id                                   Int
-  follower_id                                    Int
+  id                                             String      @id @default(uuid())
+  following_id                                   String
+  follower_id                                    String
   date_creation                                  DateTime    @default(now())
   Utilisateur_Follower_follower_idToUtilisateur  Utilisateur @relation("Follower_follower_idToUtilisateur", fields: [follower_id], references: [id])
   Utilisateur_Follower_following_idToUtilisateur Utilisateur @relation("Follower_following_idToUtilisateur", fields: [following_id], references: [id])
 }
 
 model Post {
-  id                Int           @id @default(autoincrement())
-  utilisateur_id    Int
+  id                String        @id @default(uuid())
+  utilisateur_id    String
   caption           String
   date_creation     DateTime      @default(now())
   date_modification DateTime
   Aime              Aime[]
+  total_likes       Int           
   Commentaire       Commentaire[]
   Utilisateur       Utilisateur   @relation(fields: [utilisateur_id], references: [id])
 }
 
 model Profile {
-  id                Int         @id @default(autoincrement())
-  id_utilisateur    Int
+  id                String      @id @default(uuid())
+  id_utilisateur    String      @unique
   sexe              String
   pays              String
   ville             String
   date_creation     DateTime    @default(now())
-  date_modification DateTime
+  date_modification DateTime    @updatedAt
   Utilisateur       Utilisateur @relation(fields: [id_utilisateur], references: [id])
+
+  @@index([id_utilisateur])
 }
 
 model Utilisateur {
-  id                                          Int           @id @default(autoincrement())
-  id_profile                                  Int
+  id                                          String        @id @default(uuid())
+  id_profile                                  String?
   firstname                                   String
   lastname                                    String
   email                                       String        @unique
   password                                    String
   isAdmin                                     Boolean       @default(false)
   date_creation                               DateTime      @default(now())
-  date_modification                           DateTime
+  date_modification                           DateTime      @default(now())
   Aime                                        Aime[]
   Commentaire                                 Commentaire[]
   Follower_Follower_follower_idToUtilisateur  Follower[]    @relation("Follower_follower_idToUtilisateur")
   Follower_Follower_following_idToUtilisateur Follower[]    @relation("Follower_following_idToUtilisateur")
   Post                                        Post[]
-  Profile                                     Profile[]
+  Profile                                     Profile?
 }

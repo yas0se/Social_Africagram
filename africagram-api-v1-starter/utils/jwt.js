@@ -1,34 +1,28 @@
-<<<<<<< Updated upstream
-=======
 const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
   // Get the token from the request headers
+  try {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  const token = authHeader && authHeader.split(' ')[1]; 
 
   if (!token) {
     // If no token is provided, return a 401 Unauthorized error
     return res.status(401).json({ error: 'No token provided' });
   }
 
-<<<<<<< Updated upstream
-  jwt.verify(token, process.env.MY_SECRET, (err, user) => {
-    if (err) {
-      console.error('Failed to authenticate token:', err);
-=======
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) {
->>>>>>> Stashed changes
-      // If the token is invalid, return a 403 Forbidden error
-      return res.status(403).json({ error: 'Failed to authenticate token' });
-    }
-
+    // Verify the token
+    const user = jwt.verify(token, process.env.MY_SECRET);
+    
     // If the token is valid, attach the user object to the request
     req.user = user;
     next();
-  });
+  } catch (error) {
+    // If there's an error during token verification, handle it here
+    console.log('Error verifying token:', error);
+    return res.status(403).json({ error: 'Failed to authenticate token' });
+  }
 };
 
+
 module.exports = authenticateToken;
->>>>>>> Stashed changes

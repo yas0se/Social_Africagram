@@ -1,36 +1,24 @@
-<<<<<<< Updated upstream
-const userLogin = (req,res) => {
-=======
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const { v4: uuidv4 } = require("uuid");
->>>>>>> Stashed changes
+const jwt = require('jsonwebtoken');
 
-} 
 
-<<<<<<< Updated upstream
-const userRegister = (req,res) => {
-    
-} 
-const adminLogin = (req,res) => {
-=======
+
 const login = async (req, res) => {
+  console.log("Login process initiated");
   try {
-    // User object is attached to the request by the comparePassword middleware
-    const user = req.user; 
+    const user = req.user;
 
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Generate JWT token for the user
-<<<<<<< Updated upstream
     const token = jwt.sign({ userId: user.id }, process.env.MY_SECRET, { expiresIn: '1h' });
-=======
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
->>>>>>> Stashed changes
+    console.log("JWT Token generated:", token);
 
-    return res.status(200).json({ token: token });
+    return res.status(200).json({ accessToken:token, message: 'User logged in successfully', user:user });
   } catch (error) {
     console.error('Error logging in user:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -68,17 +56,14 @@ const register = async (req, res) => {
         res.status(500).json({ error: "Failed to register user" });
     }
 }
->>>>>>> Stashed changes
 
-} 
 
 const logout = (req,res) => {
     
 } 
 
 module.exports = {
-    userLogin,
-    userRegister,
-    adminLogin,
+    login,
+    register,
     logout
 }
