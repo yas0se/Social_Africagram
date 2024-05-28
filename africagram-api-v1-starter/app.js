@@ -14,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Define routes
+app.use('/',authRoutes)
 app.use('/api/comments', authenticateToken, commentRoutes);
 app.use('/api/posts', authenticateToken, postRoutes);
 app.use('/api/followers', authenticateToken, followerRoutes);

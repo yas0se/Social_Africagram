@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 
 const hashPassword = async (req, res, next) => {
+  console.log("hashPassword")
   try {
     // Check if the password is present in the request body
     if (!req.body.password) {
