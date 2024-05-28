@@ -12,9 +12,14 @@ const authenticateToken = (req, res, next) => {
     return res.status(401).json({ error: 'No token provided' });
   }
 
+<<<<<<< Updated upstream
   jwt.verify(token, process.env.MY_SECRET, (err, user) => {
     if (err) {
       console.error('Failed to authenticate token:', err);
+=======
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+>>>>>>> Stashed changes
       // If the token is invalid, return a 403 Forbidden error
       return res.status(403).json({ error: 'Failed to authenticate token' });
     }

@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 const userLogin = (req,res) => {
+=======
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+const { v4: uuidv4 } = require("uuid");
+>>>>>>> Stashed changes
 
 } 
 
@@ -18,7 +24,11 @@ const login = async (req, res) => {
     }
 
     // Generate JWT token for the user
+<<<<<<< Updated upstream
     const token = jwt.sign({ userId: user.id }, process.env.MY_SECRET, { expiresIn: '1h' });
+=======
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+>>>>>>> Stashed changes
 
     return res.status(200).json({ token: token });
   } catch (error) {
