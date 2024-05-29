@@ -1,11 +1,34 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const getTotalLikes = async (postId) => {
+  const totalLikes = await prisma.aime.count({
+    where: {
+      post_id: postId
+    }
+  });
+
+  return totalLikes;
+};
+
+const updateTotalLikes = async (postId, totalLikes) => {
+  const updatedPost = await prisma.post.update({
+    where: {
+      id: postId
+    },
+    data: {
+      totalLikes: totalLikes
+    }
+  });
+
+  return updatedPost;
+};
+
+
 const createPostLike = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { postId } = req.body;
-
+    const { postId } = req.params;
     // Check if the user has already liked the post
     const existingLike = await prisma.aime.findFirst({
       where: {
@@ -26,6 +49,21 @@ const createPostLike = async (req, res) => {
       }
     });
 
+   
+      const totalLikes = await prisma.aime.count({
+    where: {
+      post_id: postId
+    }
+  });
+    const updatedPost = await prisma.post.update({
+      where: {
+        id: postId
+      },
+      data: {
+        totalLikes: totalLikes
+      }
+    });
+
     res.status(201).json(like);
   } catch (error) {
     console.error('Error creating post like:', error);
@@ -35,13 +73,13 @@ const createPostLike = async (req, res) => {
 
 const deletePostLike = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { postId } = req.params;
     const userId = req.user.userId;
 
     // Delete the post like if the userId matches the like's userId
     const deletedLike = await prisma.aime.deleteMany({
       where: {
-        id: id,
+        post_id: postId,
         utilisateur_id: userId
       }
     });
@@ -60,17 +98,31 @@ const deletePostLike = async (req, res) => {
 const getPostLike = async (req, res) => {
   try {
     const userId = req.user.userId;
+    const { postId } = req.params;
 
     // Fetch the post likes for the user
     const likes = await prisma.aime.findMany({
       where: {
-        utilisateur_id: userId
+        utilisateur_id: userId,
+        post_id: postId
       },
       include: {
         Post: true
       }
     });
-
+    const totalLikes = await prisma.aime.count({
+      where: {
+        post_id: postId
+      }
+    });
+      const updatedPost = await prisma.post.update({
+        where: {
+          id: postId
+        },
+        data: {
+          totalLikes: totalLikes
+        }
+      });
     res.status(200).json(likes);
   } catch (error) {
     console.error('Error fetching post likes:', error);

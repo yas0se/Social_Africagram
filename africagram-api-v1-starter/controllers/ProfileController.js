@@ -5,6 +5,8 @@ const createProfile = async (req, res) => {
   try {
     console.log("creating profile")
     const userId = req.user.userId;
+    console.log(req.headers["authorization"])
+    console.log(userId)
     const { sexe, pays, ville } = req.body;
 
     // Create the profile using the userId and other profile data

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 
 
-const login = async (req, res) => {
+const login = async (req, res,next) => {
   console.log("Login process initiated");
   try {
     const user = req.user;
@@ -14,11 +14,10 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    // Generate JWT token for the user
-    const token = jwt.sign({ userId: user.id }, process.env.MY_SECRET, { expiresIn: '1h' });
-    console.log("JWT Token generated:", token);
+  
 
-    return res.status(200).json({ accessToken:token, message: 'User logged in successfully', user:user });
+    res.status(200).json({ accessToken:token, message: 'User logged in successfully', user:user });
+    next()
   } catch (error) {
     console.error('Error logging in user:', error);
     res.status(500).json({ error: 'Internal server error' });

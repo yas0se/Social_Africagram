@@ -5,7 +5,8 @@ const comparePassword =  require("../utils/comparePasswords")
 const hashPassword = require("../utils/hashPassword")
 const validateInputs = require("../errors/bad-request");
 const authenticateToken = require('../utils/jwt');
-router.post('/login', comparePassword, login);
+const startSession = require('../utils/jwt');
+router.post('/login', comparePassword, login ,startSession);
 router.post('/register',validateInputs,hashPassword, register);
 router.get('/logout', authenticateToken,logout);
 

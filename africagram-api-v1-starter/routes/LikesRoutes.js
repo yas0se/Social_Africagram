@@ -6,8 +6,8 @@ const {
     getPostLike
 } = require('../controllers/LikesController');
 
-router.post('/:postId/likes', createPostLike);
-router.delete('/:postId/likes/:userId', deletePostLike);
-router.get('/:postId/likes', getPostLike);
+router.post('/:postId', createPostLike);
+router.delete('/:postId', deletePostLike);
+router.get('/:postId', getPostLike);
 
 module.exports = router;

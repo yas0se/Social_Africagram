@@ -42,6 +42,7 @@ model Post {
   date_creation     DateTime      @default(now())
   date_modification DateTime
   Aime              Aime[]
+  totalLikes        Int           @default(0)
   Commentaire       Commentaire[]
   Utilisateur       Utilisateur   @relation(fields: [utilisateur_id], references: [id])
 }
@@ -69,10 +70,12 @@ model Utilisateur {
   isAdmin                                     Boolean       @default(false)
   date_creation                               DateTime      @default(now())
   date_modification                           DateTime      @default(now())
-  Aime                                        Aime[]
-  Commentaire                                 Commentaire[]
   Follower_Follower_follower_idToUtilisateur  Follower[]    @relation("Follower_follower_idToUtilisateur")
   Follower_Follower_following_idToUtilisateur Follower[]    @relation("Follower_following_idToUtilisateur")
   Post                                        Post[]
   Profile                                     Profile?
+  totalFollower                               Int @default(0)
+  totalFollowing                              Int @default(0)
+  Aime                                        Aime[]
+  Commentaire                                 Commentaire[]
 }

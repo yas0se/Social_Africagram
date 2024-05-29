@@ -10,7 +10,8 @@ const createPost = async (req, res) => {
     const post = await prisma.post.create({
       data: {
         utilisateur_id: userId,
-        caption: caption
+        caption: caption,
+        date_modification: new Date()
       }
     });
 
