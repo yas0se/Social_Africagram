@@ -5,5 +5,5 @@ const {
     
 } = require('../controllers/FollowerController');
 
-router.post('/follow/:id', followUser);
+router.post('/:id', followUser);
 module.exports = router;

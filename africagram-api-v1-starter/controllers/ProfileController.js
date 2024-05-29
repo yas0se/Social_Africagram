@@ -16,6 +16,14 @@ const createProfile = async (req, res) => {
         ville: ville
       }
     });
+    const user = await prisma.utilisateur.update({
+      where : {
+        id : userId
+      },
+      data : {
+        id_profile : profile.id
+      }
+    })
 
     res.status(201).json(profile);
   } catch (error) {

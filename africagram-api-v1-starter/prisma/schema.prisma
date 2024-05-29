@@ -42,7 +42,6 @@ model Post {
   date_creation     DateTime      @default(now())
   date_modification DateTime
   Aime              Aime[]
-  total_likes       Int           
   Commentaire       Commentaire[]
   Utilisateur       Utilisateur   @relation(fields: [utilisateur_id], references: [id])
 }
