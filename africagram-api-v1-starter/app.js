@@ -30,7 +30,6 @@ app.use('/api/profiles', authenticateToken, profileRoutes);
 app.use('/api/statistics', authenticateToken, statisticsRoutes);
 app.use('/api/users', authenticateToken, userRoutes);
 app.use(notFound);
-
 app.use(serverError);
 app.listen(port, () => {
     console.log(`Server is running on PORT ${port}....`);

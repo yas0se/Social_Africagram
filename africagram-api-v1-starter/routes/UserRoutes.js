@@ -4,12 +4,17 @@ const {
     createUser,
     updateUser,
     getUser,
-    getUserById
+    getUserById,
+    deleteUser,
+    makeAdmin
 } = require('../controllers/UserController');
+const hashPassword = require('../utils/hashPassword');
 
-router.post('/', createUser);
-router.put('/:userId', updateUser);
+router.post('/', hashPassword ,createUser);
+router.put('/:userId',hashPassword ,updateUser);
 router.get('/', getUser);
 router.get('/:userId', getUserById);
+router.delete('/:userId',deleteUser);
+router.put('/:userId',makeAdmin);
 
 module.exports = router;

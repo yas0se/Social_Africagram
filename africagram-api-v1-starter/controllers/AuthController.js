@@ -1,23 +1,18 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const { v4: uuidv4 } = require("uuid");
-const jwt = require('jsonwebtoken');
 
 
 
-const login = async (req, res,next) => {
+const login = async (req, res) => {
   console.log("Login process initiated");
   try {
     const user = req.user;
-
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
-
-  
-
-    res.status(200).json({ accessToken:token, message: 'User logged in successfully', user:user });
-    next()
+    // Correctly place the response sending inside the condition
+    return res.status(200);
   } catch (error) {
     console.error('Error logging in user:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -49,7 +44,7 @@ const register = async (req, res) => {
             }
         });
 
-        res.status(200).json({ message: "User registered successfully", user: register });
+        return res.status(200).json({ message: "User registered successfully", user: register });
     } catch (error) {
       console.log(error)
         res.status(500).json({ error: "Failed to register user" });
