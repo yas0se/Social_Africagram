@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const getNewsfeed = async (req, res) => {
     try {
         const userId = req.user.userId;
-        
+        const page = req.params.step || 0;
         const user = await prisma.utilisateur.findUnique({
             where: { id: userId },
             select: {
@@ -24,8 +24,11 @@ const getNewsfeed = async (req, res) => {
                 utilisateur_id: { in: [userId, ...followingIds] }
             },
             orderBy: {
-                date_creation: desc
-            }
+                date_creation: 'desc'
+            },
+            take: 5,
+            skip: 5 * page
+
         });
 
         res.json({ newsfeed });

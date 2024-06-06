@@ -25,16 +25,17 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+    console.log("updating user")
   try {
     const { userId } = req.params;
     const { email, password, firstname, lastname } = req.body;
     const user = await prisma.utilisateur.update({
       where: { id: userId },
       data: {
-        email,
-        password,
-        firstname,
-        lastname,
+        email : email,
+        password : password,
+        firstname : firstname,
+        lastname : lastname,
       },
     });
     res.json({ user });
@@ -47,7 +48,6 @@ const updateUser = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const {userId} = req.user
-    console.log(userId)
     const admin =  await prisma.utilisateur.findUnique({
         where: {
             id: userId

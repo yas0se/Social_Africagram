@@ -11,10 +11,10 @@ const {
 const hashPassword = require('../utils/hashPassword');
 
 router.post('/', hashPassword ,createUser);
-router.put('/:userId',hashPassword ,updateUser);
+router.put('/:userId' ,updateUser);
 router.get('/', getUser);
 router.get('/:userId', getUserById);
 router.delete('/:userId',deleteUser);
-router.put('/:userId',makeAdmin);
+router.put('/admin/:userId',makeAdmin);
 
 module.exports = router;
