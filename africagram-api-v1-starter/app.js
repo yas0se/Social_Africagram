@@ -15,6 +15,7 @@ const statisticsRoutes = require('./routes/StatisticsRoutes');
 const userRoutes = require('./routes/UserRoutes');
 const { notFound } = require('./errors/not-found');
 const { serverError } = require('./errors/index');
+const adminAuth = require('./errors/unauthorized');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,7 +29,7 @@ app.use('/api/followers', authenticateToken, followerRoutes);
 app.use('/api/newsfeed', authenticateToken, newsfeedRoutes);
 app.use('/api/profiles', authenticateToken, profileRoutes);
 app.use('/api/statistics', authenticateToken, statisticsRoutes);
-app.use('/api/users', authenticateToken, userRoutes);
+app.use('/api/users', authenticateToken,adminAuth, userRoutes);
 app.use(notFound);
 app.use(serverError);
 app.listen(port, () => {
